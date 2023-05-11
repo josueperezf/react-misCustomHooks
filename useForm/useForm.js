@@ -2,17 +2,23 @@ import { useState } from 'react'
 
 // initialState es el nombre de los input que deseo que tenga el formulario
 export const useForm = (initialState = {}) => {
-    const [values, setvalues] = useState(initialState);
+    const [formState, setFormState] = useState(initialState);
 
-    // reset en los input su valor inicial, pero si se le envia una nueva data, entonces coloca esos valores nuevo a los value de los input
-    const reset = (newStateForm = initialState)=>{
-        setvalues(newStateForm);
+    // onResetForm en los input su valor inicial, pero si se le envia una nueva data, entonces coloca esos valores nuevo a los value de los input
+    const onResetForm = (newStateForm = initialState)=>{
+        setFormState(newStateForm);
     }
-    const handleInputChange = ({target})=>{
-        setvalues({
-            ...values,
-            [target.name]:target.value
+    const onInputChange = ({target})=>{
+        const {name, value} = target;
+        setFormState({
+            ...formState,
+            [name]: value
         });
     }
-    return [values, handleInputChange, reset];
+    return {
+        ...formState,
+        formState,
+        onInputChange,
+        onResetForm
+    };
 }

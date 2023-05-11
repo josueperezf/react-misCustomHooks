@@ -2,20 +2,22 @@
 
 Permite crear formularios de manera dinamica, obteniendo la data cada vez que cambia, no tiene limite para el numero de input que puede tener
 
-retorna [values, handleInputChange, reset] el valor de todos los inputs, metodo para cambiar el valor de los mismos, y un metodo reset para limpiar todos los inputs
+retorna [values, onInputChange, onResetForm] el valor de todos los inputs, metodo para cambiar el valor de los mismos, y un metodo onResetForm para limpiar todos los inputs
 
 EJEMPLO DE SU USO:
 
-     const [ formValues, handleInputChange] = useForm({
+     const [ formState, onInputChange, name, email, password] = useForm({
         name:'',
         email:'',
         password:'',
     });
-    const {name, email, password} = formValues;
+
+    // la siguiente linea ya no se utiliza por la ultima mejora que se le hizo
+    // const {name, email, password} = formState;
 
     const handlerSubmit = (e)=>{
         e.preventDefault();
-        console.log(formValues);
+        console.log(formState);
     };
     return (
         <form onSubmit={handlerSubmit}>
@@ -31,7 +33,7 @@ EJEMPLO DE SU USO:
                 autoComplete="off"
                 autoCapitalize="true"
                 value={name}
-                onChange={ handleInputChange }
+                onChange={ onInputChange }
 
              />
          </div>
@@ -44,7 +46,7 @@ EJEMPLO DE SU USO:
                 autoComplete="off"
                 autoCapitalize="true"
                 value={email}
-                onChange={ handleInputChange }
+                onChange={ onInputChange }
 
              />
          </div>
@@ -57,7 +59,7 @@ EJEMPLO DE SU USO:
                 autoComplete="off"
                 autoCapitalize="true"
                 value={password}
-                onChange={ handleInputChange }
+                onChange={ onInputChange }
 
              />
          </div>
